@@ -26,7 +26,6 @@ const registerUser = async (req, res) => {
       username,
       email: email.toLowerCase(),
       password,
-      loggedIn: false,
     });
 
     return sendSuccess(
@@ -40,7 +39,7 @@ const registerUser = async (req, res) => {
       201
     );
   } catch (error) {
-    sendError(res, `Internal server error: ${error.message}}`, 500);
+    sendError(res, `Internal server error: ${error.message}`, 500);
   }
 };
 
@@ -89,9 +88,6 @@ const logoutUser = async (req, res) => {
     if (!user) {
       return sendError(res, "User not found.", 404);
     }
-
-    user.loggedIn = false;
-    await user.save();
 
     return sendSuccess(res, "Logged out successfully");
   } catch (error) {
